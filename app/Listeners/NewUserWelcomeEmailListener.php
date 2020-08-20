@@ -28,6 +28,6 @@ class NewUserWelcomeEmailListener
      */
     public function handle(NewUser $event)
     {
-        return $event->message;
+        return 'Listeners says : '.$event->message;
     }
 }

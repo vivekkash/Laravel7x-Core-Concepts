@@ -34,7 +34,7 @@
 
 /* what if has lots of dependencies */
 
- #$car = new Car(new Fuel(new Price)) // this becomes difficult to handle everything calling and to remember, 
+ #$car = new Car(new Fuel(new Price)) // this becomes difficult to handle each time calling and to remember, 
 									  //so handle this register to service container and call same using facade
 
 /* bind the Car to service container / registering the service in the container */
@@ -83,7 +83,7 @@
 // }
 
 
-/* bind the Car to service container / registering the service in the container */
+/* bind the bill to service container / registering the service in the container */
 
 // app()->bind('bill', function($app){
 
@@ -185,18 +185,24 @@
 
 // class Book{
 
+	//public $author;
 
+	//public function __construct(Author $author){
+
+	//	$this->author = $author;
+
+	//}
 
 // }
 
 
 // class Author{
 
-// 	protected $book;
+// 	public $price;
 
-// 	public function __construct(Book $book){
+// 	public function __construct(Price $price){
 
-//          $this->book = $book;
+//          $this->price = $price;
 // 	}
 
 // }
@@ -204,22 +210,20 @@
 
 // class price{
 
-// 	protected $author;
+	//public function getPrice(){
 
-// 	public function __construct(Author $author){
-
-//          $this->author = $author;
-// 	}
+		//return 'price';
+	//}
 
 // }
 
 
 
-//dump(resolve('Price')); // Its will resolves all the dependent class of price using PHP reflection, 
+//dump(resolve('Book')); // Its will resolves all the dependent class of Book using PHP reflection, 
 						// which gives details of the class
 ###### OR ######
 
-//dump(app()->make('Price'));
+//dump(app()->make('Book'));
 
 
 /* Register a Service Name ASP in the AppServiceProvider */
@@ -527,7 +531,7 @@ Route::get('post', function(){
 | Auth::gaurd() -> return whether the current user is logged in or not (true/false)
 | 
 | Middleware auth : middleware('auth') or middleware('auth:api|web')(gaurd): can be used in either route or construct method of controller 
-| to restrict only authenticated user access to the  
+| to restrict only authenticated user access to that logic 
 | Auth::attempt(['email'=>'',password=>'']) : check the user table to fetch the email and then match the password
 | Auth::login($user) -> login the user
 | Auth::loginUsingId(1) -> login user by its ID
@@ -1305,6 +1309,27 @@ Route::get('locale/{lang?}', function($lang=null){
 | ###############################
 | Moving specific queue to high priority
 |php artisan queue:work --queue=high,default
+|
+*/
+
+
+/*
+|--------------------------------------------------------------------------
+| Broadcasting
+|--------------------------------------------------------------------------
+| Websocket are used to implemented realtime applications, live updating interface,
+| when some data is updated on the server, a messages is sent from the server to 
+| the clients using websocket connection.
+| - Pusher
+| - Redis pub/sub method, but need to use socket.io and its server listening for the event 
+|	and delegating to the client
+| - Null to cease broadcasting
+|
+| Whatever method you used need to update in the laravel echo so it identifies and bridge itself 
+| to the model. ex. broadcaster : socket.io or pusher
+|
+| you need to implement interface ShouldBroadcast, which tells laravel this event need to be 
+| broadcast.
 |
 */
 
